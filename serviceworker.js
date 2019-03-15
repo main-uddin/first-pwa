@@ -3,9 +3,7 @@
 
 console.log('WORKER: executing.')
 
-var version = 'v2::'
-
-//var offlineFundamentals = ['', 'css/global.css', 'js/global.js']
+var version = 'v3::'
 
 self.addEventListener('install', function(event) {
   console.log('WORKER: install event in progress.')
@@ -103,4 +101,15 @@ self.addEventListener('activate', function(event) {
         console.log('WORKER: activate completed.')
       })
   )
+})
+
+self.addEventListener('beforeinstallprompt', function (e) {
+  const eventCopy = e
+  e.preventDefault()
+
+  if(window.confirm("Install this PWA?")) {
+    eventCopy.prompt()
+  } else {
+    console.log("User does not want PWA")
+  }
 })
