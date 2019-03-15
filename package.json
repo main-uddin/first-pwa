@@ -2,8 +2,8 @@
   "name": "first-pwa",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://main-uddin.github.io/first-pwa",
-  "dependencies": {
+  "homepage": "http://main-uddin.github.io/first-pwa",
+  "devDependencies": {
     "@babel/core": "7.2.2",
     "@svgr/webpack": "4.1.0",
     "babel-core": "7.0.0-bridge.0",
@@ -26,6 +26,7 @@
     "eslint-plugin-react": "7.12.4",
     "file-loader": "2.0.0",
     "fs-extra": "7.0.1",
+    "gh-pages": "^2.0.1",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
@@ -39,10 +40,8 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "6.5.0",
     "postcss-safe-parser": "4.0.1",
-    "react": "^16.8.4",
     "react-app-polyfill": "^0.2.2",
     "react-dev-utils": "^8.0.0",
-    "react-dom": "^16.8.4",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.1",
@@ -56,7 +55,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -117,11 +118,8 @@
       "react-app"
     ]
   },
-  "standard": {
-    "env": {
-      "browser": true,
-      "worker": true,
-      "serviceworker": true
-    }
+  "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   }
 }

@@ -5,16 +5,19 @@ console.log('WORKER: executing.')
 
 var version = 'v1::'
 
-var offlineFundamentals = ['', 'css/global.css', 'js/global.js']
+//var offlineFundamentals = ['', 'css/global.css', 'js/global.js']
 
 self.addEventListener('install', function(event) {
   console.log('WORKER: install event in progress.')
   event.waitUntil(
-    caches
-      .open(version + 'fundamentals')
-      .then(function(cache) {
-        return cache.addAll(offlineFundamentals)
-      })
+    fetch('/asset-manifest.json')
+      .then(res => res.json())
+      .then(files => Object.values(files))
+      .then(files =>
+        caches.open(version + 'first-pwa').then(function(cache) {
+          return cache.addAll(files)
+        })
+      )
       .then(function() {
         console.log('WORKER: install completed')
       })
@@ -39,10 +42,10 @@ self.addEventListener('fetch', function(event) {
 
       console.log(
         'WORKER: fetch event',
-        cached ? '(cached)' : '(network)',
+        networked ? '(network)' : '(cached)',
         event.request.url
       )
-      return cached || networked
+      return networked || cached
 
       function fetchedFromNetwork(response) {
         var cacheCopy = response.clone()
@@ -65,6 +68,7 @@ self.addEventListener('fetch', function(event) {
       }
 
       function unableToResolve() {
+        if (cached) return cached
         console.log('WORKER: fetch request failed in both cache and network.')
         return new Response('<h1>Service Unavailable</h1>', {
           status: 503,
