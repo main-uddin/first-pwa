@@ -3,14 +3,14 @@
 
 console.log('WORKER: executing.')
 
-var version = 'v1::'
+var version = 'v2::'
 
 //var offlineFundamentals = ['', 'css/global.css', 'js/global.js']
 
 self.addEventListener('install', function(event) {
   console.log('WORKER: install event in progress.')
   event.waitUntil(
-    fetch('/asset-manifest.json')
+    fetch('asset-manifest.json')
       .then(res => res.json())
       .then(files => Object.values(files))
       .then(files =>
