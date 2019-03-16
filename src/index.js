@@ -8,10 +8,10 @@ ReactDOM.render(<App />, document.getElementById('root'))
 if ('serviceWorker' in navigator) {
   console.log('CLIENT: service worker registration in progress.')
   navigator.serviceWorker.register('serviceworker.js').then(
-    function() {
+    function () {
       console.log('CLIENT: service worker registration complete.')
     },
-    function() {
+    function () {
       console.log('CLIENT: service worker registration failure.')
     }
   )
