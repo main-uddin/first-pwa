@@ -99,16 +99,3 @@ self.addEventListener('activate', function (event) {
       })
   )
 })
-
-self.addEventListener('beforeinstallprompt', function (e) {
-  e.preventDefault()
-  const eventCopy = e
-
-  document.querySelector('.App-header').style.background = 'red !important'
-
-  // if (window.confirm('Install this PWA?')) {
-  eventCopy.prompt()
-  // } else {
-  // console.log('User does not want PWA')
-  // }
-})
