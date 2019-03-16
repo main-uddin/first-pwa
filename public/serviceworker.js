@@ -1,28 +1,25 @@
-/* eslint-env serviceworker, browser, worker */
-/* eslint-global self */
-
 console.log('WORKER: executing.')
 
-var version = 'v3::'
+const version = 'v3::'
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function (event) {
   console.log('WORKER: install event in progress.')
   event.waitUntil(
     fetch('asset-manifest.json')
       .then(res => res.json())
       .then(files => Object.values(files))
       .then(files =>
-        caches.open(version + 'first-pwa').then(function(cache) {
+        caches.open(version + 'first-pwa').then(function (cache) {
           return cache.addAll(files)
         })
       )
-      .then(function() {
+      .then(function () {
         console.log('WORKER: install completed')
       })
   )
 })
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function (event) {
   console.log('WORKER: fetch event in progress.')
   if (event.request.method !== 'GET') {
     console.log(
@@ -33,7 +30,7 @@ self.addEventListener('fetch', function(event) {
     return
   }
   event.respondWith(
-    caches.match(event.request).then(function(cached) {
+    caches.match(event.request).then(function (cached) {
       var networked = fetch(event.request)
         .then(fetchedFromNetwork, unableToResolve)
         .catch(unableToResolve)
@@ -45,17 +42,17 @@ self.addEventListener('fetch', function(event) {
       )
       return networked || cached
 
-      function fetchedFromNetwork(response) {
+      function fetchedFromNetwork (response) {
         var cacheCopy = response.clone()
 
         console.log('WORKER: fetch response from network.', event.request.url)
 
         caches
           .open(version + 'pages')
-          .then(function add(cache) {
+          .then(function add (cache) {
             return cache.put(event.request, cacheCopy)
           })
-          .then(function() {
+          .then(function () {
             console.log(
               'WORKER: fetch response stored in cache.',
               event.request.url
@@ -65,7 +62,7 @@ self.addEventListener('fetch', function(event) {
         return response
       }
 
-      function unableToResolve() {
+      function unableToResolve () {
         if (cached) return cached
         console.log('WORKER: fetch request failed in both cache and network.')
         return new Response('<h1>Service Unavailable</h1>', {
@@ -80,24 +77,24 @@ self.addEventListener('fetch', function(event) {
   )
 })
 
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', function (event) {
   console.log('WORKER: activate event in progress.')
 
   event.waitUntil(
     caches
       .keys()
-      .then(function(keys) {
+      .then(function (keys) {
         return Promise.all(
           keys
-            .filter(function(key) {
+            .filter(function (key) {
               return !key.startsWith(version)
             })
-            .map(function(key) {
+            .map(function (key) {
               return caches.delete(key)
             })
         )
       })
-      .then(function() {
+      .then(function () {
         console.log('WORKER: activate completed.')
       })
   )
@@ -107,9 +104,9 @@ self.addEventListener('beforeinstallprompt', function (e) {
   const eventCopy = e
   e.preventDefault()
 
-  if(window.confirm("Install this PWA?")) {
+  if (window.confirm('Install this PWA?')) {
     eventCopy.prompt()
   } else {
-    console.log("User does not want PWA")
+    console.log('User does not want PWA')
   }
 })

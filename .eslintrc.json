@@ -1,0 +1,13 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["standard", "standard-react"],
+  "env": {
+    "browser": true,
+    "serviceworker": true,
+    "node": true,
+    "worker": true
+  },
+  "rules": {
+    "react/prop-types": 0
+  }
+}
