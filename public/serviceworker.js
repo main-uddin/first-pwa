@@ -1,6 +1,6 @@
 console.log('WORKER: executing.')
 
-const version = 'v3::'
+const version = 'v4::'
 
 self.addEventListener('install', function (event) {
   console.log('WORKER: install event in progress.')
@@ -101,12 +101,14 @@ self.addEventListener('activate', function (event) {
 })
 
 self.addEventListener('beforeinstallprompt', function (e) {
-  const eventCopy = e
   e.preventDefault()
+  const eventCopy = e
 
-  if (window.confirm('Install this PWA?')) {
-    eventCopy.prompt()
-  } else {
-    console.log('User does not want PWA')
-  }
+  document.body.style.background = 'red !important'
+
+  // if (window.confirm('Install this PWA?')) {
+  eventCopy.prompt()
+  // } else {
+  // console.log('User does not want PWA')
+  // }
 })

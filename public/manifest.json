@@ -1,20 +1,20 @@
 {
-  "short_name": "FirstPWA",
-  "name": "PWA Example",
+  "short_name": "First PWA",
+  "name": "A demo PWA",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "icons/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "icon.png",
+      "src": "icons/icon.png",
       "sizes": "192x192",
       "type": "image/png"
     }
     ,
     {
-      "src": "splash.png",
+      "src": "icons/splash.png",
       "sizes": "512x512",
       "type": "image/png"
     }
