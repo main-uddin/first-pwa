@@ -104,7 +104,7 @@ self.addEventListener('beforeinstallprompt', function (e) {
   e.preventDefault()
   const eventCopy = e
 
-  document.body.style.background = 'red !important'
+  document.querySelector('.App-header').style.background = 'red !important'
 
   // if (window.confirm('Install this PWA?')) {
   eventCopy.prompt()
