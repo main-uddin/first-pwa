@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
-class App extends Component {
+class App extends PureComponent {
   render () {
     return (
       <div className='App'>
@@ -22,6 +22,18 @@ class App extends Component {
         </header>
       </div>
     )
+  }
+
+  componentDidMount () {
+    // window.addEventListener('beforeinstallprompt', function (e) {
+    //   // e.preventDefault()
+    //   // const deferredEvent = e
+    //   // if (window.confirm('Do you want a PWA?')) {
+    //   //   deferredEvent.prompt().catch(console.log)
+    //   // } else {
+    //   //   console.log('User does not want PWA')
+    //   // }
+    // })
   }
 }
 
